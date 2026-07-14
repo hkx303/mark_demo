@@ -46,6 +46,10 @@ body {
     sans-serif;
 }
 
+#root {
+  min-height: 100vh;
+}
+
 body,
 .sidebar,
 .editor-panel,
@@ -75,6 +79,11 @@ button {
   display: grid;
   grid-template-columns: minmax(280px, 360px) minmax(0, 1fr);
   min-height: 100vh;
+}
+
+.loading-shell {
+  place-items: center;
+  color: var(--muted);
 }
 
 .sidebar {

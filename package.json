@@ -1,6 +1,51 @@
 {
+  "name": "qingji-desktop",
+  "version": "1.0.0",
+  "description": "清记桌面笔记客户端",
+  "main": "dist-electron/electron/main.js",
+  "type": "module",
   "scripts": {
-    "test": "node --test"
+    "dev": "concurrently -k \"vite\" \"wait-on tcp:5173 && cross-env VITE_DEV_SERVER_URL=http://localhost:5173 electron .\"",
+    "build": "tsc -p tsconfig.json && vite build && tsc -p tsconfig.electron.json",
+    "test": "vitest run",
+    "package": "npm run build && electron-builder --dir"
   },
-  "devDependencies": {}
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.1.0",
+    "@testing-library/user-event": "^14.5.2",
+    "@types/node": "^22.10.2",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "@vitest/coverage-v8": "^2.1.8",
+    "concurrently": "^9.1.2",
+    "cross-env": "^7.0.3",
+    "electron": "^33.3.1",
+    "electron-builder": "^25.1.8",
+    "jsdom": "^25.0.1",
+    "typescript": "^5.7.2",
+    "vite": "^5.4.11",
+    "vitest": "^2.1.8",
+    "wait-on": "^8.0.1"
+  },
+  "build": {
+    "appId": "com.qingji.desktop",
+    "productName": "清记",
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "mac": {
+      "category": "public.app-category.productivity"
+    }
+  }
 }
