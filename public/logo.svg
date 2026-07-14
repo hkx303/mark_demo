@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="logoTitle logoDesc">
+  <title id="logoTitle">清记 Logo</title>
+  <desc id="logoDesc">A calm note app mark with layered pages and a writing stroke.</desc>
+  <style>
+    :root {
+      color-scheme: light dark;
+    }
+
+    .frame {
+      fill: #e9f4f2;
+      stroke: #256f6c;
+    }
+
+    .shadow {
+      fill: #b9deda;
+    }
+
+    .paper {
+      fill: #ffffff;
+      stroke: #18202a;
+    }
+
+    .fold {
+      fill: #d9efed;
+      stroke: #18202a;
+    }
+
+    .line {
+      stroke: #256f6c;
+    }
+
+    .spark {
+      fill: #f2b84b;
+      stroke: #18202a;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .frame {
+        fill: #203d3d;
+        stroke: #78ccc6;
+      }
+
+      .shadow {
+        fill: #2d5f5c;
+      }
+
+      .paper {
+        fill: #edf2f7;
+        stroke: #0f151b;
+      }
+
+      .fold {
+        fill: #bfe7e3;
+        stroke: #0f151b;
+      }
+
+      .line {
+        stroke: #1c5653;
+      }
+
+      .spark {
+        fill: #ffd166;
+        stroke: #0f151b;
+      }
+    }
+  </style>
+  <rect class="frame" x="8" y="8" width="112" height="112" rx="28" stroke-width="8" />
+  <path class="shadow" d="M42 30h41l21 21v52H42z" opacity="0.8" />
+  <path class="paper" d="M33 24h43l21 21v59H33z" stroke-width="6" stroke-linejoin="round" />
+  <path class="fold" d="M76 24v21h21z" stroke-width="6" stroke-linejoin="round" />
+  <path class="line" d="M48 58h31M48 73h34M48 88h21" fill="none" stroke-width="7" stroke-linecap="round" />
+  <path class="line" d="M78 91c9-15 19-24 31-28" fill="none" stroke-width="7" stroke-linecap="round" />
+  <circle class="spark" cx="107" cy="62" r="7" stroke-width="4" />
+</svg>
