@@ -6,6 +6,23 @@
   }
 })(typeof globalThis !== "undefined" ? globalThis : this, function () {
   const STORAGE_KEY = "qingji.notes.v1";
+  const THEME_STORAGE_KEY = "qingji.theme.v1";
+
+  function loadTheme(storage) {
+    try {
+      return storage.getItem(THEME_STORAGE_KEY) === "dark" ? "dark" : "light";
+    } catch {
+      return "light";
+    }
+  }
+
+  function saveTheme(storage, theme) {
+    try {
+      storage.setItem(THEME_STORAGE_KEY, theme);
+    } catch {
+      // The theme still applies for this session when storage is unavailable.
+    }
+  }
 
   function nowIso() {
     return new Date().toISOString();
@@ -133,9 +150,22 @@
       noteTitle: document.getElementById("noteTitle"),
       savedState: document.getElementById("savedState"),
       searchInput: document.getElementById("searchInput"),
+      themeToggle: document.getElementById("themeToggle"),
     };
 
     let activeNoteId = store.all()[0]?.id || null;
+
+    function applyTheme(theme) {
+      const isDark = theme === "dark";
+      document.documentElement.dataset.theme = theme;
+      elements.themeToggle.setAttribute("aria-pressed", String(isDark));
+      elements.themeToggle.setAttribute("aria-label", isDark ? "切换到浅色模式" : "切换到深色模式");
+      elements.themeToggle.querySelector(".theme-toggle-icon").textContent = isDark ? "☀" : "☾";
+      elements.themeToggle.querySelector(".theme-toggle-label").textContent = isDark ? "浅色模式" : "深色模式";
+    }
+
+    let theme = loadTheme(storage);
+    applyTheme(theme);
 
     function render() {
       const query = elements.searchInput.value;
@@ -206,6 +236,11 @@
     });
 
     elements.searchInput.addEventListener("input", render);
+    elements.themeToggle.addEventListener("click", () => {
+      theme = theme === "dark" ? "light" : "dark";
+      applyTheme(theme);
+      saveTheme(storage, theme);
+    });
     elements.noteTitle.addEventListener("input", saveActiveNote);
     elements.noteContent.addEventListener("input", saveActiveNote);
 
@@ -220,11 +255,14 @@
 
   return {
     STORAGE_KEY,
+    THEME_STORAGE_KEY,
     createNote,
     createStore,
     filterNotes,
     getNoteTitle,
     getPreview,
+    loadTheme,
+    saveTheme,
     sortNotes,
   };
 });

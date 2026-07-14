@@ -4,10 +4,13 @@ const { join } = require("node:path");
 const test = require("node:test");
 const {
   STORAGE_KEY,
+  THEME_STORAGE_KEY,
   createStore,
   filterNotes,
   getNoteTitle,
   getPreview,
+  loadTheme,
+  saveTheme,
 } = require("../app.js");
 
 function createMemoryStorage(initialValue) {
@@ -32,6 +35,16 @@ test("HTML renders the required two-pane note layout", () => {
   assert.match(html, /class="editor"/);
   assert.match(html, /id="noteContent"/);
   assert.doesNotMatch(html, /id="noteCount"/);
+  assert.match(html, /id="themeToggle"/);
+});
+
+test("theme preference defaults to light and persists valid choices", () => {
+  const storage = createMemoryStorage();
+
+  assert.equal(loadTheme(storage), "light");
+  saveTheme(storage, "dark");
+  assert.equal(storage.getItem(THEME_STORAGE_KEY), "dark");
+  assert.equal(loadTheme(storage), "dark");
 });
 
 test("store creates, updates, deletes, and persists notes", () => {
