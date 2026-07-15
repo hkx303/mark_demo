@@ -4,9 +4,62 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>清记</title>
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background: #f4f6f8;
+        color: #18202a;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+      }
+
+      .startup-fallback {
+        display: grid;
+        min-height: 100vh;
+        place-items: center;
+        padding: 24px;
+      }
+
+      .startup-panel {
+        max-width: 560px;
+        border: 1px solid #d7dde5;
+        border-radius: 8px;
+        background: #ffffff;
+        padding: 28px;
+        box-shadow: 0 18px 45px rgba(24, 32, 42, 0.08);
+      }
+
+      .startup-panel h1 {
+        margin: 0 0 10px;
+        font-size: 28px;
+      }
+
+      .startup-panel p {
+        margin: 0 0 14px;
+        color: #657386;
+        line-height: 1.6;
+      }
+
+      .startup-panel code {
+        border-radius: 6px;
+        background: #f8fafc;
+        padding: 2px 6px;
+        color: #256f6c;
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <main class="startup-fallback" aria-label="清记启动说明">
+        <section class="startup-panel">
+          <h1>清记</h1>
+          <p>这是 Electron + React + TypeScript 桌面客户端源码入口，直接用 file:// 打开时浏览器不会编译 TSX，因此应用无法在这里启动。</p>
+          <p>开发运行请在项目目录执行 <code>npm run dev</code>；生产验证请执行 <code>npm run build</code> 后打开 <code>dist/index.html</code> 或启动 Electron 应用。</p>
+        </section>
+      </main>
+    </div>
     <script type="module" src="/src/renderer/main.tsx"></script>
   </body>
 </html>
