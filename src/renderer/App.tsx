@@ -29,13 +29,26 @@ export function App() {
   const [query, setQuery] = useState("");
   const [savedState, setSavedState] = useState("已保存");
   const [isReady, setIsReady] = useState(false);
+  const [startupError, setStartupError] = useState<string | null>(null);
 
   useEffect(() => {
     let isMounted = true;
+    const api = window.qingji;
 
-    window.qingji
+    if (!api) {
+      setStartupError("桌面桥接加载失败。请通过 Electron 启动应用，并确认 preload 脚本已正确构建。");
+      setIsReady(true);
+      return () => {
+        isMounted = false;
+      };
+    }
+
+    api
       .loadAppData()
-      .catch(() => getDefaultAppData())
+      .catch(() => {
+        setStartupError("读取本地数据失败，已使用默认笔记启动。");
+        return getDefaultAppData();
+      })
       .then((data) => {
         if (!isMounted) return;
         const orderedNotes = sortNotes(data.notes);
@@ -58,8 +71,15 @@ export function App() {
   const activeNote = activeNoteId ? notes.find((note) => note.id === activeNoteId) ?? null : null;
 
   function persist(nextData: AppData) {
+    const api = window.qingji;
+    if (!api) {
+      setSavedState("保存失败");
+      setStartupError("桌面桥接加载失败，无法保存笔记。");
+      return;
+    }
+
     setSavedState("保存中...");
-    window.qingji
+    api
       .saveAppData(nextData)
       .then((savedData) => {
         setNotes(sortNotes(savedData.notes));
@@ -108,6 +128,18 @@ export function App() {
     return (
       <main className="app-shell loading-shell" aria-label="笔记软件">
         <p>正在加载...</p>
+      </main>
+    );
+  }
+
+  if (startupError && notes.length === 0) {
+    return (
+      <main className="app-shell loading-shell" aria-label="笔记软件">
+        <section className="startup-panel" role="alert">
+          <h1>清记</h1>
+          <p>{startupError}</p>
+          <p>请先执行 npm run build，再执行 npm run dev。</p>
+        </section>
       </main>
     );
   }

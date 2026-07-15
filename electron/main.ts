@@ -18,7 +18,7 @@ function createWindow(): void {
     title: "清记",
     backgroundColor: "#f4f6f8",
     webPreferences: {
-      preload: join(currentDir, "preload.js"),
+      preload: join(currentDir, "preload.cjs"),
       contextIsolation: true,
       nodeIntegration: false,
       sandbox: false,

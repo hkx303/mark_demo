@@ -84,6 +84,28 @@ button {
 .loading-shell {
   place-items: center;
   color: var(--muted);
+  padding: 24px;
+}
+
+.startup-panel {
+  max-width: 560px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  padding: 28px;
+  box-shadow: var(--shadow);
+}
+
+.startup-panel h1 {
+  margin: 0 0 10px;
+  color: var(--text);
+  font-size: 28px;
+}
+
+.startup-panel p {
+  margin: 0 0 14px;
+  color: var(--muted);
+  line-height: 1.6;
 }
 
 .sidebar {

@@ -43,6 +43,7 @@ async function renderReady(initialData: AppData) {
 describe("App", () => {
   beforeEach(() => {
     document.documentElement.removeAttribute("data-theme");
+    Reflect.deleteProperty(window, "qingji");
     vi.restoreAllMocks();
   });
 
@@ -134,5 +135,12 @@ describe("App", () => {
       theme: "dark",
       notes: [expect.objectContaining({ id: "welcome-note" })],
     });
+  });
+
+  it("shows a startup error instead of a blank page when the Electron bridge is missing", async () => {
+    render(<App />);
+
+    expect(await screen.findByRole("alert")).toHaveTextContent("桌面桥接加载失败");
+    expect(screen.getByText("请先执行 npm run build，再执行 npm run dev。")).toBeInTheDocument();
   });
 });
