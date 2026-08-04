@@ -2,6 +2,10 @@
 
 清记是一个基于 Electron + React + TypeScript 的本地笔记桌面应用。应用提供双栏笔记管理界面，支持新建、编辑、删除、搜索、自动保存和深浅主题切换，数据保存在当前系统的 Electron 用户数据目录中。
 
+## 软件界面
+
+![清记桌面客户端界面](public/qingji-screenshot.png)
+
 ## 功能特性
 
 - 本地笔记管理：创建、编辑、删除笔记。
@@ -16,7 +20,7 @@
 - Electron 33
 - React 18
 - TypeScript 5
-- Vite 5
+- Vite 6
 - Vitest
 - Testing Library
 - electron-builder
